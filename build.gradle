@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.vertx:vertx-core:3.2.0'
+    compile 'com.google.inject:guice:4.0'
+
+    testCompile 'junit:junit:4.11'
+    
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.assertj:assertj-core-java8:1.0.0m1'
+    
+    testCompile 'io.vertx:vertx-core:3.2.0:tests'
+}
