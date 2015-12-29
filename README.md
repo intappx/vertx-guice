@@ -1,2 +1,2 @@
 # vertx-guice
-Enable Verticle dependency injection using Guice.
+Enable Verticle dependency injection using Guice
