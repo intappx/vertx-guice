@@ -29,8 +29,11 @@
 
     <property name="fileExtensions" value="java, properties, xml"/>
 
-    <!-- Allows using @SuppressWarnings annotation -->
+    <!-- Allows using @SuppressWarnings("check-name") annotation -->
     <module name="SuppressWarningsFilter" />
+
+    <!-- Allows using '//CHECKSTYLE:OFF' comment -->
+    <module name="SuppressionCommentFilter" />
 
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
@@ -40,6 +43,7 @@
 
     <module name="TreeWalker">
         <module name="SuppressWarningsHolder" />
+        <module name="FileContentsHolder"/>
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -166,7 +170,7 @@
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
         <module name="CustomImportOrder">
-            <property name="specialImportsRegExp" value="com.intapp.labs"/>
+            <property name="specialImportsRegExp" value="com.intapp"/>
             <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="customImportOrderRules" value="STATIC###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE"/>
         </module>
