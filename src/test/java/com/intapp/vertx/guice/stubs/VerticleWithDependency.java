@@ -1,6 +1,7 @@
 package com.intapp.vertx.guice.stubs;
 
 import com.google.common.base.Preconditions;
+
 import io.vertx.core.AbstractVerticle;
 
 import javax.inject.Inject;
@@ -12,8 +13,7 @@ public class VerticleWithDependency extends AbstractVerticle {
     private final Dependency dependency;
 
     @Inject
-    public VerticleWithDependency(Dependency dependency)
-    {
+    public VerticleWithDependency(Dependency dependency) {
         this.dependency = Preconditions.checkNotNull(dependency);
     }
 

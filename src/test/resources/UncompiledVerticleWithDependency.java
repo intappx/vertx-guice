@@ -11,8 +11,7 @@ import javax.inject.Inject;
  */
 public class UncompiledVerticleWithDependency extends AbstractVerticle {
     @Inject
-    public UncompiledVerticleWithDependency(Vertx vertx)
-    {
+    public UncompiledVerticleWithDependency(Vertx vertx) {
         Preconditions.checkNotNull(vertx);
     }
 }

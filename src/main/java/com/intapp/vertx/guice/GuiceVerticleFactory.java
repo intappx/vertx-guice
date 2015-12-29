@@ -2,6 +2,7 @@ package com.intapp.vertx.guice;
 
 import com.google.common.base.Preconditions;
 import com.google.inject.Injector;
+
 import io.vertx.core.Verticle;
 import io.vertx.core.impl.verticle.CompilingClassLoader;
 import io.vertx.core.spi.VerticleFactory;
@@ -14,8 +15,8 @@ import io.vertx.core.spi.VerticleFactory;
  * 2) Verticle should be deployed with the factory prefix {@link GuiceVerticleFactory::PREFIX}.
  */
 public class GuiceVerticleFactory implements VerticleFactory {
-    private final Injector injector;
     public static final String PREFIX = "java-guice";
+    private final Injector injector;
 
     public GuiceVerticleFactory(Injector injector) {
         this.injector = Preconditions.checkNotNull(injector);
@@ -39,6 +40,6 @@ public class GuiceVerticleFactory implements VerticleFactory {
             clazz = classLoader.loadClass(verticleName);
         }
 
-        return (Verticle)this.injector.getInstance(clazz);
+        return (Verticle) this.injector.getInstance(clazz);
     }
 }

@@ -2,6 +2,7 @@ package com.intapp.vertx.guice;
 
 import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
+
 import io.vertx.core.Vertx;
 
 /**
@@ -15,9 +16,6 @@ public class VertxModule extends AbstractModule {
         this.vertx = Preconditions.checkNotNull(vertx);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void configure() {
         bind(Vertx.class).toInstance(this.vertx);
