@@ -1,11 +1,13 @@
 package com.intapp.vertx.guice.stubs;
 
 import com.google.common.base.Preconditions;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 
-import javax.inject.Inject;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.inject.Inject;
 
 public class VerticleWithVertxDependency extends AbstractVerticle {
     public static AtomicInteger instanceCount = new AtomicInteger();
@@ -15,11 +17,13 @@ public class VerticleWithVertxDependency extends AbstractVerticle {
         Preconditions.checkNotNull(vertxInstanceDependency);
     }
 
-    @Override public void start() throws Exception {
+    @Override
+    public void start() throws Exception {
         instanceCount.incrementAndGet();
     }
 
-    @Override public void stop() throws Exception {
+    @Override
+    public void stop() throws Exception {
         instanceCount.decrementAndGet();
     }
 }

@@ -1,4 +1,12 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+
+    // Code analysis
+    id 'checkstyle'
+    id 'findbugs'
+    id 'pmd'
+    id 'de.aaschmid.cpd' version '0.5'
+}
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.8
@@ -8,14 +16,60 @@ repositories {
     mavenCentral()
 }
 
+// Checkstyle
+checkstyle {
+    ignoreFailures = true
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+
+    // Version is required since default version used by Gradle is out of date
+    // and doesn't support several checkstyle options.
+    // see http://stackoverflow.com/questions/31001013/property-does-not-exist-error-in-checkstyle-configuration-file
+    // see http://stackoverflow.com/questions/29337949/issue-in-checkstyle-configuaration-in-intellij-idea
+    toolVersion = '6.13'
+    // required to disable plugin unless task is invoked directly
+    sourceSets = []
+}
+
+// FindBugs
+findbugs {
+    ignoreFailures = true
+    effort = "max"
+    toolVersion = '3.0.1'
+    // required to disable plugin unless task is invoked directly
+    sourceSets = []
+}
+
+// PMD
+pmd {
+    ignoreFailures = true
+    sourceSets = [sourceSets.main]
+    toolVersion = '5.4.1'
+    // required to disable plugin unless task is invoked directly
+    sourceSets = []
+}
+
+// CPD
+// Configuration: https://github.com/aaschmid/gradle-cpd-plugin
+cpd {
+    ignoreFailures = true
+    language = 'java'
+    toolVersion = '5.3.0' // defaults to '5.3.0'; just available for v5.2.0 and higher (see explanation above)
+}
+// required to disable plugin unless task is invoked directly
+cpdCheck.onlyIf {project.properties['cpd'].toBoolean()}
+
 dependencies {
     compile 'io.vertx:vertx-core:3.2.0'
     compile 'com.google.inject:guice:4.0'
 
     testCompile 'junit:junit:4.11'
-    
+
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'org.assertj:assertj-core-java8:1.0.0m1'
-    
+
     testCompile 'io.vertx:vertx-core:3.2.0:tests'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
 }
