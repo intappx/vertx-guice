@@ -1,6 +1,7 @@
 package com.intapp.vertx.guice;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import com.intapp.vertx.guice.stubs.DependencyAsSingletonModule;
 import com.intapp.vertx.guice.stubs.DependencyImpl;
@@ -13,6 +14,9 @@ import com.google.inject.Injector;
 
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.file.FileSystem;
+import io.vertx.core.shareddata.SharedData;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +30,22 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class GuiceVerticleFactoryTest {
     @Mock Vertx vertx;
+    @Mock EventBus eventBus;
+    @Mock FileSystem fileSystem;
+    @Mock SharedData sharedData;
+
     private Injector injector;
     private GuiceVerticleFactory factory;
 
     @Before
-    @SuppressWarnings("checkstyle:javadocmethod")
     public void setUp() throws Exception {
         this.injector = Guice.createInjector(new DependencyModule());
         this.factory = new GuiceVerticleFactory(this.injector);
         this.factory.init(vertx);
+
+        when(this.vertx.eventBus()).thenReturn(this.eventBus);
+        when(this.vertx.fileSystem()).thenReturn(this.fileSystem);
+        when(this.vertx.sharedData()).thenReturn(this.sharedData);
     }
 
     @Test
