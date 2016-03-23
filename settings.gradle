@@ -1,3 +1,10 @@
 rootProject.name='vertx-guice'
 
-include 'vertx-guice'
+include 'vertx-guice', \
+    'vertx-guice-examples/launcher', \
+    'vertx-guice-examples/manual', \
+    'vertx-guice-examples/service-proxy'
+
+project(':vertx-guice-examples/launcher').name = 'launcher-example'
+project(':vertx-guice-examples/manual').name = 'manual-example'
+project(':vertx-guice-examples/service-proxy').name = 'service-proxy-example'
