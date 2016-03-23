@@ -16,6 +16,25 @@ repositories {
     mavenCentral()
 }
 
+def vertxVersion = "3.2.1";
+
+dependencies {
+    compile "io.vertx:vertx-core:$vertxVersion"
+    compile 'com.google.inject:guice:4.0'
+
+    testCompile 'junit:junit:4.11'
+
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.assertj:assertj-core-java8:1.0.0m1'
+
+    testCompile "io.vertx:vertx-core:$vertxVersion:tests"
+    testCompile "io.vertx:vertx-rx-java:$vertxVersion"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}
+
 // Checkstyle
 checkstyle {
     ignoreFailures = true
@@ -57,19 +76,3 @@ cpd {
 }
 // required to disable plugin unless task is invoked directly
 cpdCheck.onlyIf {project.properties['cpd'].toBoolean()}
-
-dependencies {
-    compile 'io.vertx:vertx-core:3.2.0'
-    compile 'com.google.inject:guice:4.0'
-
-    testCompile 'junit:junit:4.11'
-
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'org.assertj:assertj-core-java8:1.0.0m1'
-
-    testCompile 'io.vertx:vertx-core:3.2.0:tests'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.7'
-}
