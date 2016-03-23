@@ -1,0 +1,3 @@
+rootProject.name='vertx-guice'
+
+include 'vertx-guice'

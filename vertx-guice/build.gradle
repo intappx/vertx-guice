@@ -23,7 +23,3 @@ dependencies {
     testCompile "io.vertx:vertx-core:$vertxVersion:tests"
     testCompile "io.vertx:vertx-rx-java:$vertxVersion"
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.7'
-}
