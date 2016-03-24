@@ -1,0 +1,10 @@
+apply plugin: 'base' // To add "clean" task to the root project.
+
+subprojects {
+    apply from: rootProject.file('common.gradle')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}
+

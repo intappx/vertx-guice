@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+def vertxVersion = "3.2.1";
+
+mainClassName = 'com.intapp.vertx.guice.examples.manual.ServiceLauncher'
+
+dependencies {
+    compile 'com.google.inject:guice:4.0'
+    compile "io.vertx:vertx-core:$vertxVersion"
+
+    compile project(':vertx-guice')
+}
