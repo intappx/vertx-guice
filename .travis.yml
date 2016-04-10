@@ -6,3 +6,11 @@ jdk:
 
 before_install:
   - chmod +x gradlew
+  - pip install --user codecov
+
+script:
+  - ./gradlew --info check jacocoTestReport
+
+after_success:
+  - ./gradlew jacocoTestReport
+  - codecov
