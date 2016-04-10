@@ -1,6 +1,8 @@
 # vertx-guice
 Enable Verticle dependency injection in Vert.x using Guice. 
 
+[![Code Coverage](https://img.shields.io/codecov/c/github/intappx/vertx-guice.svg)](https://codecov.io/github/intappx/vertx-guice)
+
 It is designed to use single injector per Vert.x instance.
 It means that `Singleton' scope is supported and works as expected. This was the main reason to implement this library instead of using [vertx-guice](https://github.com/englishtown/vertx-guice) library from English Town.
 

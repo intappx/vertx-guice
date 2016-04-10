@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 //noinspection GroovyUnusedAssignment
@@ -22,4 +23,10 @@ dependencies {
 
     testCompile "io.vertx:vertx-core:$vertxVersion:tests"
     testCompile "io.vertx:vertx-rx-java:$vertxVersion"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
