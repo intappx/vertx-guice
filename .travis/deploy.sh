@@ -2,10 +2,18 @@
 
 set -e
 
+SUB_PROJECT=":vertx-guice:"
+
 if [ ! -z "$TRAVIS_TAG" ]; then
-    echo "Deploying release version ${TRAVIS_TAG}"
-    ./gradlew :vertx-guice:uploadArchives -PnexusUsername="${SONATYPE_USERNAME}" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="local.secring.gpg" -PmavenVersion="${TRAVIS_TAG}"
+    # Release tags in github basically are named with 'v' prefix. Remove this prefix from version component.
+    VERSION=${TRAVIS_TAG#v}
+
+    echo "Deploying release version. Tag: ${TRAVIS_TAG}. Version: ${VERSION}"
+    ./gradlew ${SUB_PROJECT}uploadArchives -PnexusUsername="${SONATYPE_USERNAME}" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="local.secring.gpg" -PmavenVersion="${VERSION}"
 else
-    echo "Deploying snapshot version"
-    ./gradlew :vertx-guice:uploadArchives -PnexusUsername="${SONATYPE_USERNAME}" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="local.secring.gpg"
+
+    SNAPSHOT_VERSION=$(./gradlew ${SUB_PROJECT}getVersion -q)
+    echo "Deploying snapshot version. Version: ${SNAPSHOT_VERSION}"
+
+    ./gradlew ${SUB_PROJECT}uploadArchives -PnexusUsername="${SONATYPE_USERNAME}" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="local.secring.gpg"
 fi

@@ -24,3 +24,7 @@ task createFolders(description: 'Creates the source folders if they do not exist
         }
     }
 }
+
+task getVersion << {
+    println version
+}
