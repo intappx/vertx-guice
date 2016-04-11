@@ -12,7 +12,7 @@ import io.vertx.core.spi.VerticleFactory;
  * To make vertx to use this factory for verticle creation the following criteria should be accomplished:
  * 1) This factory should be registered in Vertx. One of the way to achieve this is to use {@link GuiceVertxLauncher}
  * as Vertx main launcher.
- * 2) Verticle should be deployed with the factory prefix {@link GuiceVerticleFactory::PREFIX}.
+ * 2) Verticle should be deployed with the factory prefix {@link #PREFIX}.
  */
 public class GuiceVerticleFactory implements VerticleFactory {
     public static final String PREFIX = "java-guice";

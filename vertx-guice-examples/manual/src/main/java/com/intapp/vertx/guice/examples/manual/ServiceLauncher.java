@@ -39,6 +39,7 @@ public class ServiceLauncher {
         GuiceVerticleFactory guiceVerticleFactory = new GuiceVerticleFactory(injector);
         vertx.registerVerticleFactory(guiceVerticleFactory);
 
-        GuiceVertxDeploymentManager.deployVerticle(vertx, MainVerticle.class);
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
+        deploymentManager.deployVerticle(MainVerticle.class);
     }
 }
