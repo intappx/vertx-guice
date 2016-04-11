@@ -7,7 +7,6 @@ jdk:
 before_install:
   - chmod +x gradlew
   - pip install --user codecov
-  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in .travis/secring.gpg.enc -out vertx-guice/local.secring.gpg -d
 
 script:
   - ./gradlew --info check jacocoTestReport
@@ -15,6 +14,9 @@ script:
 after_success:
   - ./gradlew jacocoTestReport
   - codecov
+
+before_deploy:
+  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in .travis/secring.gpg.enc -out vertx-guice/local.secring.gpg -d
 
 deploy:
   -

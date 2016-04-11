@@ -95,3 +95,6 @@ crashlytics-build.properties
 # Application specific 
 ############################################################
 vertx-guice-examples/service-proxy/src/main/generated/
+
+// Local environment files.
+local.*
