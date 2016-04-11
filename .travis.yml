@@ -6,6 +6,7 @@ jdk:
 
 before_install:
   - chmod +x gradlew
+  - chmod +x .travis/deploy.sh
   - pip install --user codecov
 
 script:
@@ -28,7 +29,7 @@ deploy:
       branch: master
   -
     provider: script
-    script: ".travis/deploy.sh"
+    script: .travis/deploy.sh
     skip_cleanup: true
     on:
       repo: intappx/vertx-guice
