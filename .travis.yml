@@ -7,12 +7,12 @@ jdk:
 before_install:
   - chmod +x gradlew
   - chmod +x .travis/deploy.sh
-  - pip install --user codecov
 
 script:
-  - ./gradlew --info check jacocoTestReport
+  - ./gradlew --info check
 
 after_success:
+  - pip install --user codecov
   - ./gradlew jacocoTestReport
   - codecov
 
