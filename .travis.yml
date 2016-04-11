@@ -21,15 +21,13 @@ before_deploy:
 deploy:
   -
     provider: script
-    script:
-      - ./gradlew uploadArchives -PnexusUsername="$SONATYPE_USERNAME" -PnexusPassword="$SONATYPE_PASSWORD" -Psigning.keyId="$SIGNING_KEY_ID" -Psigning.password="$SIGNING_PASSWORD" -Psigning.secretKeyRingFile="local.secring.gpg"
+    script: .travis/deploy.sh
     on:
       repo: intappx/vertx-guice
       branch: master
   -
     provider: script
-    script:
-      - ./gradlew uploadArchives -PnexusUsername="$SONATYPE_USERNAME" -PnexusPassword="$SONATYPE_PASSWORD" -Psigning.keyId="$SIGNING_KEY_ID" -Psigning.password="$SIGNING_PASSWORD" -Psigning.secretKeyRingFile="local.secring.gpg" -PmavenVersion="$TRAVIS_TAG"
+    script: .travis/deploy.sh
     on:
       repo: intappx/vertx-guice
       tags: true
