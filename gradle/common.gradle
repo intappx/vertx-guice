@@ -3,6 +3,7 @@
 //
 
 apply plugin: 'java'
+apply plugin: 'maven'
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = '1.8'
@@ -11,6 +12,9 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral();
 }
+
+group = 'com.intapp'
+version = project.hasProperty('mavenVersion') ? project['mavenVersion'] : '1.0-SNAPSHOT'
 
 task createFolders(description: 'Creates the source folders if they do not exist.') doLast {
     sourceSets*.allSource*.srcDirs*.each { File srcDir ->
