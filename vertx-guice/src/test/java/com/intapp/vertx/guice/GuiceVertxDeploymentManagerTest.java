@@ -38,7 +38,8 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
     @Test
     public void testDeployVerticle() throws Exception {
         // Act
-        GuiceVertxDeploymentManager.deployVerticle(this.vertx, VerticleWithVertxDependency.class);
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        deploymentManager.deployVerticle(VerticleWithVertxDependency.class);
         waitUntil(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
 
         // Assert
@@ -53,8 +54,8 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
     @Test
     public void testDeployVerticleWithOptions() throws Exception {
          // Act`
-        GuiceVertxDeploymentManager.deployVerticle(
-            this.vertx,
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        deploymentManager.deployVerticle(
             VerticleWithVertxDependency.class,
             new DeploymentOptions().setWorker(true));
 
@@ -76,8 +77,8 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
         // Act`
         ObservableFuture<String> deplymentResult = RxHelper.observableFuture();
 
-        GuiceVertxDeploymentManager.deployVerticle(
-            this.vertx,
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        deploymentManager.deployVerticle(
             VerticleWithVertxDependency.class,
             new DeploymentOptions(),
             deplymentResult.toHandler());

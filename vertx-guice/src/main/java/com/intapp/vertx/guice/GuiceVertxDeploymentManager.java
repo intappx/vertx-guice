@@ -11,52 +11,52 @@ import io.vertx.core.Vertx;
  * Implements convenient methods to deploy verticles programmatically by specified class using @{@link GuiceVerticleFactory} factory.
  */
 public class GuiceVertxDeploymentManager {
-    /**
-     * Deploy a verticle instance given a class of the verticle using default deployment options
-     * and @{@link GuiceVerticleFactory} factory.
-     *
-     * @param vertx The vertx instance to deploy verticle into.
-     * @param verticleClazz the class of the verticle to deploy.
-     */
-    public static void deployVerticle(final Vertx vertx, final Class verticleClazz) {
-        Preconditions.checkNotNull(vertx);
-        Preconditions.checkNotNull(verticleClazz);
+    private final Vertx vertx;
 
-        deployVerticle(vertx, verticleClazz, new DeploymentOptions());
+    public GuiceVertxDeploymentManager(final Vertx vertx) {
+        this.vertx = Preconditions.checkNotNull(vertx);
     }
 
     /**
-     * Like {@link .deployVerticle(Vertx, Class)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
+     * Deploy a verticle instance given a class of the verticle using default deployment options
+     * and {@link GuiceVerticleFactory} factory.
+     *
+     * @param verticleClazz the class of the verticle to deploy.
+     */
+    public void deployVerticle(final Class verticleClazz) {
+        Preconditions.checkNotNull(verticleClazz);
+
+        deployVerticle(verticleClazz, new DeploymentOptions());
+    }
+
+    /**
+     * Like {@link #deployVerticle(Class)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
      * deployment.
      *
-     * @param vertx The vertx instance to deploy verticle into.
      * @param verticleClazz  the class of the verticle to deploy.
      * @param options  the deployment options.
      */
-    public static void deployVerticle(final Vertx vertx, final Class verticleClazz, final DeploymentOptions options) {
-        Preconditions.checkNotNull(vertx);
+    public void deployVerticle (final Class verticleClazz, final DeploymentOptions options) {
         Preconditions.checkNotNull(verticleClazz);
         Preconditions.checkNotNull(options);
 
-        vertx.deployVerticle(getFullVerticleName(verticleClazz), options);
+        this.vertx.deployVerticle(getFullVerticleName(verticleClazz), options);
     }
 
     /**
-     * Like {@link .deployVerticle(Vertx, Class, Handler )} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
-     * deployment.
+     * Like {@link #deployVerticle(Class, DeploymentOptions)} but handler can be provided
+     * which will be notified when the deployment is complete.
      *
-     * @param vertx The vertx instance to deploy verticle into.
      * @param verticleClazz  the class of the verticle to deploy.
      * @param options  the deployment options.
      * @param completionHandler  a handler which will be notified when the deployment is complete.
      */
-    public static void deployVerticle(final Vertx vertx, final Class verticleClazz, final DeploymentOptions options, Handler<AsyncResult<String>> completionHandler) {
-        Preconditions.checkNotNull(vertx);
+    public void deployVerticle( final Class verticleClazz, final DeploymentOptions options, Handler<AsyncResult<String>> completionHandler) {
         Preconditions.checkNotNull(verticleClazz);
         Preconditions.checkNotNull(options);
         Preconditions.checkNotNull(completionHandler);
 
-        vertx.deployVerticle(getFullVerticleName(verticleClazz), options, completionHandler);
+        this.vertx.deployVerticle(getFullVerticleName(verticleClazz), options, completionHandler);
     }
 
     /**
