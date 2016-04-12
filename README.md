@@ -3,6 +3,7 @@ Enable Verticle dependency injection in Vert.x using Guice.
 
 [![Build Status](https://travis-ci.org/intappx/vertx-guice.svg?branch=master)](https://travis-ci.org/intappx/vertx-guice)
 [![Code Coverage](https://img.shields.io/codecov/c/github/intappx/vertx-guice.svg)](https://codecov.io/github/intappx/vertx-guice)
+[![Maven Central](https://img.shields.io/maven-central/v/com.intapp/vertx-guice.svg?maxAge=2592000)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.intapp%22%20AND%20a%3A%22vertx-guice%22)
 
 It is designed to use single injector per Vert.x instance.
 It means that `Singleton' scope is supported and works as expected. This was the main reason to implement this library instead of using [vertx-guice](https://github.com/englishtown/vertx-guice) library from English Town.
