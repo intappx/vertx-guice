@@ -37,7 +37,7 @@ Example which shows the following:
 * Deploying verticle programmatically which uses 'GuiceVerticleFactory'
 
 ##### [Using dependency injection with Vert.x services](vertx-guice-examples/service-proxy)
-There is an [Vert.x Service Proxy](http://vertx.io/docs/vertx-service-proxy/) library which allows to develop less verbosity code for asynchronous verticles (which works over event bus).
+There is an [Vert.x Service Proxy](http://vertx.io/docs/vertx-service-proxy/java/) library which allows to develop less verbosity code for asynchronous verticles (which works over event bus).
 This example shows the following:
 
 * Particular the same stuff from manual example with addition that Vertx service concept is used.
