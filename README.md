@@ -19,7 +19,7 @@ To register application specific dependencies, you can also create a sub-class o
 Several examples were added which covers main scenarios of the adding dependency injection support. 
 
 ###### [Vert.x Launcher](vertx-guice-examples/launcher)
-Shows the way to use ``GuiceVertxLauncher` to run application with registering application specific modules and deploying verticle with injecting dependencies.
+Shows the way to use `GuiceVertxLauncher` to run application with registering application specific modules and deploying verticle with injecting dependencies.
 
 Basically it covers the following:
 
