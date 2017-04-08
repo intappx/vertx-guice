@@ -26,7 +26,7 @@ Basically it covers the following:
 * Extending `GuiceVertxLauncher` to register application specific modules
 * Customized `run` gradle task which deploys verticle with constructor dependency injection. 
 
-*Note* some of the usefull information about Vert.x launcher and gradle configuration can be found in [vertx 3.0 examples](https://github.com/vert-x3/vertx-examples/tree/master/gradle-redeploy).
+*Note* some of the useful information about Vert.x launcher and gradle configuration can be found in [vertx 3.0 examples](https://github.com/vert-x3/vertx-examples/tree/master/gradle-redeploy).
 
 ##### [Creating and running Vert.x manually](vertx-guice-examples/manual)
 Example which shows the following:
