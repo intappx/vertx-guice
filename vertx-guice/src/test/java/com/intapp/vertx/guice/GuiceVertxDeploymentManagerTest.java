@@ -73,6 +73,28 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
      * @throws Exception
      */
     @Test
+    public void testDeployVerticleWithCompletionHandler() throws Exception {
+        // Act`
+        ObservableFuture<String> deplymentResult = RxHelper.observableFuture();
+
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        deploymentManager.deployVerticle(
+                VerticleWithVertxDependency.class,
+                deplymentResult.toHandler());
+
+        String deploymentId = deplymentResult.toBlocking().single();
+
+        // Assert
+        org.assertj.core.api.Assertions.assertThat(deploymentId).isNotEmpty();
+    }
+
+    /**
+     * Verifies that verticle with dependency can be deployed successfully and result of the deployment can be received
+     * via providing completion handler.
+     *
+     * @throws Exception
+     */
+    @Test
     public void testDeployVerticleWithOptionsAndCompletionHandler() throws Exception {
         // Act`
         ObservableFuture<String> deplymentResult = RxHelper.observableFuture();
@@ -88,4 +110,6 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
         // Assert
         org.assertj.core.api.Assertions.assertThat(deploymentId).isNotEmpty();
     }
+
+
 }

@@ -43,6 +43,21 @@ public class GuiceVertxDeploymentManager {
         this.vertx.deployVerticle(getFullVerticleName(verticleClazz), options);
     }
 
+
+    /**
+     * Like {@link #deployVerticle(Class)} but handler can be provided
+     * which will be notified when the deployment is complete.
+     *
+     * @param verticleClazz  the class of the verticle to deploy.
+     * @param completionHandler  a handler which will be notified when the deployment is complete.
+     */
+    public void deployVerticle( final Class verticleClazz, Handler<AsyncResult<String>> completionHandler) {
+        Preconditions.checkNotNull(verticleClazz);
+        Preconditions.checkNotNull(completionHandler);
+
+        this.vertx.deployVerticle(getFullVerticleName(verticleClazz), completionHandler);
+    }
+
     /**
      * Like {@link #deployVerticle(Class, DeploymentOptions)} but handler can be provided
      * which will be notified when the deployment is complete.
