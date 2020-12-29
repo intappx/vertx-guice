@@ -11,12 +11,12 @@ repositories {
     mavenCentral()
 }
 
-def vertxVersion = "3.2.1";
+def vertxVersion = "4.0.0";
 
 mainClassName = 'com.intapp.vertx.guice.examples.manual.ServiceLauncher'
 
 dependencies {
-    compile 'com.google.inject:guice:4.0'
+    compile 'com.google.inject:guice:4.2.3'
     compile "io.vertx:vertx-core:$vertxVersion"
 
     compile project(':vertx-guice')
