@@ -1,14 +1,31 @@
 ignore_merge_commits = true
-branch_whitelist = []
-pre_bump_hooks = []
-post_bump_hooks = []
+branch_whitelist = ["master"]
+
+pre_bump_hooks = [
+    "sh -c 'mvn verify $MAVEN_CLI_OPTS -Prelease'",
+    "git checkout -b release/{{version}}",
+    "mvn versions:set -DnewVersion={{version}}",
+]
+
+post_bump_hooks = [
+    "git push --set-upstream origin release/{{version}}",
+    "git push origin {{version}}",
+    "sh -c 'mvn -f vertx-guice deploy'",
+    "git checkout master",
+    "git merge --no-ff release/{{version}} -m \"chore: merge release branch {{version}} \"",
+    "mvn versions:set -DnewVersion={{version+1patch-SNAPSHOT}}",
+    "git add .",
+    "git commit -m \"chore(snapshot): bump snapshot to {{version+1patch-SNAPSHOT}}\"",
+    "git push",
+    "git push origin --delete release/{{version}}"
+]
 
 [commit_types]
 
 [changelog]
 path = "CHANGELOG.md"
 authors = [
-
+    { signature = "Lucas Declercq", username = "lucas-dclrcq" },
 ]
 
 [bump_profiles]
