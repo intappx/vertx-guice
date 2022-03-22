@@ -2,7 +2,7 @@ ignore_merge_commits = true
 branch_whitelist = ["master"]
 
 pre_bump_hooks = [
-    "mvn -f vertx-guice verify -Prelease",
+    "mvn -f vertx-guice verify",
     "git checkout -b release/{{version}}",
     "mvn versions:set -DnewVersion={{version}}",
 ]
