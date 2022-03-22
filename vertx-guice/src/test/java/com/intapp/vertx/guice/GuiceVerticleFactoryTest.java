@@ -10,6 +10,7 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -29,13 +30,11 @@ public class GuiceVerticleFactoryTest {
     private GuiceVerticleFactory factory;
 
     @BeforeEach
-    public void setUp(Vertx vertx, VertxTestContext context) {
+    public void setUp(Vertx vertx) {
 
         this.injector = Guice.createInjector(new DependencyModule());
         this.factory = new GuiceVerticleFactory(this.injector);
         this.factory.init(vertx);
-
-        context.completeNow();
     }
 
     @Test

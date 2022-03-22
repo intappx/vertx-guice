@@ -4,13 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ldclrcq</groupId>
+    <name>VertX Guice::Parent</name>
     <artifactId>vertx-guice-parent</artifactId>
     <version>0.3.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
         <vertx.version>4.2.5</vertx.version>
+        <guice.version>5.1.0</guice.version>
     </properties>
 
     <modules>
@@ -19,6 +21,44 @@
         <module>vertx-guice-examples/manual</module>
         <module>vertx-guice-examples/service-proxy</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--  Vertx  -->
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-core</artifactId>
+                <version>${vertx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-junit5</artifactId>
+                <version>${vertx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-rx-java</artifactId>
+                <version>${vertx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-codegen</artifactId>
+                <version>${vertx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-service-proxy</artifactId>
+                <version>${vertx.version}</version>
+            </dependency>
+
+            <!--  Guice  -->
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

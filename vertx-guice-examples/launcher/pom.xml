@@ -3,26 +3,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>Vertx Guice::Examples::Launcher</name>
     <groupId>org.ldclrcq.</groupId>
     <artifactId>vertx-guice-example-launcher</artifactId>
     <version>0.3.4-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-    <properties>
-        <java.version>17</java.version>
-        <vertx.version>4.2.5</vertx.version>
-    </properties>
+    <parent>
+        <groupId>org.ldclrcq</groupId>
+        <artifactId>vertx-guice-parent</artifactId>
+        <version>0.3.4-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>4.2.2</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>4.2.4</version>
         </dependency>
         <dependency>
             <groupId>org.ldclrcq</groupId>
