@@ -3,9 +3,6 @@ name: Release
 on:
     workflow_dispatch:
         branches: master
-env:
-    MAVEN_CLI_OPTS: "-s ci/.m2/settings.xml --batch-mode"
-
 jobs:
     release:
         runs-on: ubuntu-latest
