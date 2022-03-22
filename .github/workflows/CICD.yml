@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Conventional commit check
-        uses: cocogitto/cocogitto-action@v2
+        uses: cocogitto/cocogitto-action@v3
         with:
           check-latest-tag-only: true
 
