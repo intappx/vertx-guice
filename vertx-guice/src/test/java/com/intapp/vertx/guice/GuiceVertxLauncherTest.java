@@ -1,7 +1,6 @@
 package com.intapp.vertx.guice;
 
 import com.intapp.vertx.guice.stubs.VerticleWithVertxDependency;
-import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import static org.awaitility.Awaitility.await;
 public class GuiceVertxLauncherTest {
 
     @BeforeEach
-    public void setUp(Vertx vertx) throws Exception {
+    public void setUp() {
         VerticleWithVertxDependency.instanceCount.set(0);
     }
 
@@ -26,7 +25,7 @@ public class GuiceVertxLauncherTest {
      * Verifies that verticle with Vertx instance dependency in constructor can be deployed and run successfully.
      */
     @Test
-    public void testRun_VerticleWithDependency_VerticleRunSuccessfully(Vertx vertx) throws Exception {
+    public void testRun_VerticleWithDependency_VerticleRunSuccessfully() {
         // Arrange
         String[] args =
             {"run", GuiceVerticleFactory.PREFIX + ":" + VerticleWithVertxDependency.class.getCanonicalName()};

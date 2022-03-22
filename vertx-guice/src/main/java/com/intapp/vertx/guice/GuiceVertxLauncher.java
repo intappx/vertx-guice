@@ -45,8 +45,8 @@ public class GuiceVertxLauncher extends Launcher {
      * To add application specific modules to be used by injector, {@link #getModules} method should
      * be overridden instead.</p>
      *
-     * @param vertx Vert.x instance for which injetor will be created.
-     * @return Guice inejector instantiated with modules provided by {@link #getModules} method.
+     * @param vertx Vert.x instance for which injector will be created.
+     * @return Guice injector instantiated with modules provided by {@link #getModules} method.
      */
     protected Injector createInjector(Vertx vertx) {
         return Guice.createInjector(this.getModules(vertx));

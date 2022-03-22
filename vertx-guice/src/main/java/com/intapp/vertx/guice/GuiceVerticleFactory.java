@@ -34,6 +34,7 @@ public class GuiceVerticleFactory implements VerticleFactory {
     public void createVerticle(String verticleName, ClassLoader classLoader, Promise<Callable<Verticle>> promise) {
         verticleName = VerticleFactory.removePrefix(verticleName);
         Class<Verticle> clazz;
+
         try {
             if (verticleName.endsWith(".java")) {
                 CompilingClassLoader compilingLoader = new CompilingClassLoader(classLoader, verticleName);
@@ -42,10 +43,11 @@ public class GuiceVerticleFactory implements VerticleFactory {
             } else {
                 clazz = (Class<Verticle>) classLoader.loadClass(verticleName);
             }
-            Verticle verticle = (Verticle) this.injector.getInstance(clazz);
+            Verticle verticle = this.injector.getInstance(clazz);
             promise.complete(() -> verticle);
         } catch (ClassNotFoundException e) {
             promise.fail(e);
         }
     }
+
 }

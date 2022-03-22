@@ -17,12 +17,12 @@ import java.time.Duration;
 import static org.awaitility.Awaitility.await;
 
 /**
- * Implements tests to veriry logic of the {@see GuiceVertxDeploymentManager} class.
+ * Implements tests to verify logic of the {@see GuiceVertxDeploymentManager} class.
  */
 @ExtendWith(VertxExtension.class)
 public class GuiceVertxDeploymentManagerTest {
     @BeforeEach
-    public void setUp(Vertx vertx) throws Exception {
+    public void setUp(Vertx vertx) {
         Injector injector = Guice.createInjector(new VertxModule(vertx));
 
         GuiceVerticleFactory guiceVerticleFactory = new GuiceVerticleFactory(injector);
@@ -33,10 +33,9 @@ public class GuiceVertxDeploymentManagerTest {
 
     /**
      * Verifies that verticle with dependency can be deployed successfully.
-     * @throws Exception
      */
     @Test
-    public void testDeployVerticle(Vertx vertx) throws Exception {
+    public void testDeployVerticle(Vertx vertx) {
         // Act
         GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
         deploymentManager.deployVerticle(VerticleWithVertxDependency.class);
@@ -49,10 +48,9 @@ public class GuiceVertxDeploymentManagerTest {
 
     /**
      * Verifies that verticle with dependency can be deployed successfully with specific deployment options.
-     * @throws Exception
      */
     @Test
-    public void testDeployVerticleWithOptions(Vertx vertx) throws Exception {
+    public void testDeployVerticleWithOptions(Vertx vertx) {
          // Act`
         GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
         deploymentManager.deployVerticle(
@@ -70,10 +68,9 @@ public class GuiceVertxDeploymentManagerTest {
      * Verifies that verticle with dependency can be deployed successfully and result of the deployment can be received
      * via providing completion handler.
      *
-     * @throws Exception
      */
     @Test
-    public void testDeployVerticleWithCompletionHandler(Vertx vertx) throws Exception {
+    public void testDeployVerticleWithCompletionHandler(Vertx vertx) {
         // Act`
         ObservableFuture<String> deploymentResult = RxHelper.observableFuture();
 
@@ -92,10 +89,9 @@ public class GuiceVertxDeploymentManagerTest {
      * Verifies that verticle with dependency can be deployed successfully and result of the deployment can be received
      * via providing completion handler.
      *
-     * @throws Exception
      */
     @Test
-    public void testDeployVerticleWithOptionsAndCompletionHandler(Vertx vertx) throws Exception {
+    public void testDeployVerticleWithOptionsAndCompletionHandler(Vertx vertx) {
         // Act`
         ObservableFuture<String> deploymentResult = RxHelper.observableFuture();
 

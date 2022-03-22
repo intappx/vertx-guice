@@ -10,7 +10,6 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -70,7 +69,7 @@ public class GuiceVerticleFactoryTest {
 
     /**
      * This test verifies that when dependency is injected using Singleton scope,
-     * than the single instance of this dependency is used by all verticles.
+     * then the single instance of this dependency is used by all verticles.
      */
     @Test
     public void testCreateVerticle_DependencyBindedInSingletonScope_SameInstanceIsUsedByAllVerticles(Vertx vertx, VertxTestContext context) {
