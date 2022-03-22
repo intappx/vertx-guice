@@ -1,22 +1,24 @@
 package com.intapp.vertx.guice;
 
 import com.intapp.vertx.guice.stubs.VerticleWithVertxDependency;
+import io.vertx.core.Vertx;
+import io.vertx.junit5.VertxExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import io.vertx.test.core.VertxTestBase;
+import java.time.Duration;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.awaitility.Awaitility.await;
 
 /**
  * Implements test to verify work of the {@link GuiceVertxLauncher} class.
  */
-public class GuiceVertxLauncherTest extends VertxTestBase {
+@ExtendWith(VertxExtension.class)
+public class GuiceVertxLauncherTest {
 
-    @Override
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    public void setUp(Vertx vertx) throws Exception {
         VerticleWithVertxDependency.instanceCount.set(0);
     }
 
@@ -24,7 +26,7 @@ public class GuiceVertxLauncherTest extends VertxTestBase {
      * Verifies that verticle with Vertx instance dependency in constructor can be deployed and run successfully.
      */
     @Test
-    public void testRun_VerticleWithDependency_VerticleRunSuccessfully() throws Exception {
+    public void testRun_VerticleWithDependency_VerticleRunSuccessfully(Vertx vertx) throws Exception {
         // Arrange
         String[] args =
             {"run", GuiceVerticleFactory.PREFIX + ":" + VerticleWithVertxDependency.class.getCanonicalName()};
@@ -33,7 +35,7 @@ public class GuiceVertxLauncherTest extends VertxTestBase {
 
         // Act
         launcher.dispatch(args);
-        waitUntil(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
+        await().atMost(Duration.ofSeconds(5)).until(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
 
         // Assert
         org.assertj.core.api.Assertions.assertThat(

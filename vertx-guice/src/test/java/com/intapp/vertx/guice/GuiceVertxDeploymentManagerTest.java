@@ -1,29 +1,29 @@
 package com.intapp.vertx.guice;
 
-import com.intapp.vertx.guice.stubs.VerticleWithVertxDependency;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
+import com.intapp.vertx.guice.stubs.VerticleWithVertxDependency;
 import io.vertx.core.DeploymentOptions;
+import io.vertx.core.Vertx;
+import io.vertx.junit5.VertxExtension;
 import io.vertx.rx.java.ObservableFuture;
 import io.vertx.rx.java.RxHelper;
-import io.vertx.test.core.VertxTestBase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.time.Duration;
+
+import static org.awaitility.Awaitility.await;
 
 /**
  * Implements tests to veriry logic of the {@see GuiceVertxDeploymentManager} class.
  */
-public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
-
-    @Override
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-
-        Injector injector = Guice.createInjector(new VertxModule(this.vertx));
+@ExtendWith(VertxExtension.class)
+public class GuiceVertxDeploymentManagerTest {
+    @BeforeEach
+    public void setUp(Vertx vertx) throws Exception {
+        Injector injector = Guice.createInjector(new VertxModule(vertx));
 
         GuiceVerticleFactory guiceVerticleFactory = new GuiceVerticleFactory(injector);
         vertx.registerVerticleFactory(guiceVerticleFactory);
@@ -36,11 +36,11 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
      * @throws Exception
      */
     @Test
-    public void testDeployVerticle() throws Exception {
+    public void testDeployVerticle(Vertx vertx) throws Exception {
         // Act
-        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
         deploymentManager.deployVerticle(VerticleWithVertxDependency.class);
-        waitUntil(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
+        await().atMost(Duration.ofSeconds(5)).until(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
 
         // Assert
         org.assertj.core.api.Assertions.assertThat(
@@ -52,14 +52,14 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
      * @throws Exception
      */
     @Test
-    public void testDeployVerticleWithOptions() throws Exception {
+    public void testDeployVerticleWithOptions(Vertx vertx) throws Exception {
          // Act`
-        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
         deploymentManager.deployVerticle(
             VerticleWithVertxDependency.class,
             new DeploymentOptions().setWorker(true));
 
-        waitUntil(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
+        await().atMost(Duration.ofSeconds(5)).until(() -> VerticleWithVertxDependency.instanceCount.get() == 1);
 
         // Assert
         org.assertj.core.api.Assertions.assertThat(
@@ -73,16 +73,16 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
      * @throws Exception
      */
     @Test
-    public void testDeployVerticleWithCompletionHandler() throws Exception {
+    public void testDeployVerticleWithCompletionHandler(Vertx vertx) throws Exception {
         // Act`
-        ObservableFuture<String> deplymentResult = RxHelper.observableFuture();
+        ObservableFuture<String> deploymentResult = RxHelper.observableFuture();
 
-        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
         deploymentManager.deployVerticle(
                 VerticleWithVertxDependency.class,
-                deplymentResult.toHandler());
+                deploymentResult.toHandler());
 
-        String deploymentId = deplymentResult.toBlocking().single();
+        String deploymentId = deploymentResult.toBlocking().single();
 
         // Assert
         org.assertj.core.api.Assertions.assertThat(deploymentId).isNotEmpty();
@@ -95,17 +95,17 @@ public class GuiceVertxDeploymentManagerTest extends VertxTestBase {
      * @throws Exception
      */
     @Test
-    public void testDeployVerticleWithOptionsAndCompletionHandler() throws Exception {
+    public void testDeployVerticleWithOptionsAndCompletionHandler(Vertx vertx) throws Exception {
         // Act`
-        ObservableFuture<String> deplymentResult = RxHelper.observableFuture();
+        ObservableFuture<String> deploymentResult = RxHelper.observableFuture();
 
-        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(this.vertx);
+        GuiceVertxDeploymentManager deploymentManager = new GuiceVertxDeploymentManager(vertx);
         deploymentManager.deployVerticle(
             VerticleWithVertxDependency.class,
             new DeploymentOptions(),
-            deplymentResult.toHandler());
+            deploymentResult.toHandler());
 
-        String deploymentId = deplymentResult.toBlocking().single();
+        String deploymentId = deploymentResult.toBlocking().single();
 
         // Assert
         org.assertj.core.api.Assertions.assertThat(deploymentId).isNotEmpty();

@@ -33,10 +33,10 @@ public class GuiceVertxDeploymentManager {
      * Like {@link #deployVerticle(Class)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
      * deployment.
      *
-     * @param verticleClazz  the class of the verticle to deploy.
-     * @param options  the deployment options.
+     * @param verticleClazz the class of the verticle to deploy.
+     * @param options       the deployment options.
      */
-    public void deployVerticle (final Class verticleClazz, final DeploymentOptions options) {
+    public void deployVerticle(final Class verticleClazz, final DeploymentOptions options) {
         Preconditions.checkNotNull(verticleClazz);
         Preconditions.checkNotNull(options);
 
@@ -48,10 +48,10 @@ public class GuiceVertxDeploymentManager {
      * Like {@link #deployVerticle(Class)} but handler can be provided
      * which will be notified when the deployment is complete.
      *
-     * @param verticleClazz  the class of the verticle to deploy.
-     * @param completionHandler  a handler which will be notified when the deployment is complete.
+     * @param verticleClazz     the class of the verticle to deploy.
+     * @param completionHandler a handler which will be notified when the deployment is complete.
      */
-    public void deployVerticle( final Class verticleClazz, Handler<AsyncResult<String>> completionHandler) {
+    public void deployVerticle(final Class verticleClazz, Handler<AsyncResult<String>> completionHandler) {
         Preconditions.checkNotNull(verticleClazz);
         Preconditions.checkNotNull(completionHandler);
 
@@ -62,11 +62,11 @@ public class GuiceVertxDeploymentManager {
      * Like {@link #deployVerticle(Class, DeploymentOptions)} but handler can be provided
      * which will be notified when the deployment is complete.
      *
-     * @param verticleClazz  the class of the verticle to deploy.
-     * @param options  the deployment options.
-     * @param completionHandler  a handler which will be notified when the deployment is complete.
+     * @param verticleClazz     the class of the verticle to deploy.
+     * @param options           the deployment options.
+     * @param completionHandler a handler which will be notified when the deployment is complete.
      */
-    public void deployVerticle( final Class verticleClazz, final DeploymentOptions options, Handler<AsyncResult<String>> completionHandler) {
+    public void deployVerticle(final Class verticleClazz, final DeploymentOptions options, Handler<AsyncResult<String>> completionHandler) {
         Preconditions.checkNotNull(verticleClazz);
         Preconditions.checkNotNull(options);
         Preconditions.checkNotNull(completionHandler);
@@ -76,10 +76,10 @@ public class GuiceVertxDeploymentManager {
 
     /**
      * Gets the name of the verticle with adding prefix required to notify vertx to use
-     * @{@link GuiceVerticleFactory} factory for verticle creation.
      *
      * @param verticleClazz the class of the verticle to deploy.
      * @return Name of the verticle which can be used for deployment to vertx.
+     * @{@link GuiceVerticleFactory} factory for verticle creation.
      */
     private static String getFullVerticleName(final Class verticleClazz) {
         return GuiceVerticleFactory.PREFIX + ":" + verticleClazz.getCanonicalName();
