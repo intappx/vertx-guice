@@ -1,0 +1,74 @@
+name: Release
+
+on:
+    workflow_dispatch:
+        branches: master
+env:
+    MAVEN_CLI_OPTS: "-s ci/.m2/settings.xml --batch-mode"
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        name: Perform release
+
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    fetch-depth: 0
+                    ssh-key: ${{ secrets.SVC_SSH_KEY }}
+
+            -   name: Setup git user
+                run: |
+                    git config user.name "Github Actions"
+                    git config user.email actions@github.com
+
+            -   uses: actions/setup-java@v2
+                name: Setup JDK 11
+                with:
+                    distribution: 'zulu'
+                    java-version: '11'
+                    check-latest: true
+
+            -   name: Semver release
+                id: release
+                uses: cocogitto/cocogitto-action@v3
+                with:
+                    release: true
+                    check-latest-tag-only: true
+                    git-user: 'Github Actions'
+                    git-user-email: 'actions@github.com'
+
+    upload_release:
+        runs-on: ubuntu-latest
+        name: Upload github release
+        needs: release
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+                with:
+                    ref: 'master'
+                    fetch-depth: 0
+
+            -   name: Retrieve latest version changelog
+                run: echo "LATEST_TAG=$(git describe --tags "$(git rev-list --tags --max-count=1)")" >> $GITHUB_ENV
+
+            -   name: Download changelog tool
+                uses: cocogitto/cocogitto-action@v3
+                with:
+                    release: false
+                    check: false
+
+            -   name: Produce changelog
+                run: cog changelog --at ${{ env.LATEST_TAG }} -t full_hash > current_changelog.md
+
+            -   name: Create Release
+                id: create_release
+                uses: actions/create-release@v1
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                with:
+                    tag_name: ${{ env.LATEST_TAG }}
+                    release_name: Release ${{ env.LATEST_TAG }}
+                    body_path: current_changelog.md
+                    draft: false
+                    prerelease: false
