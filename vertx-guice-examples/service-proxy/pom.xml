@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>org.ldclrcq</groupId>
+        <groupId>com.ldclrcq</groupId>
         <artifactId>vertx-guice-parent</artifactId>
         <version>0.3.4-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
@@ -23,7 +23,7 @@
             <artifactId>vertx-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.ldclrcq</groupId>
+            <groupId>com.ldclrcq</groupId>
             <artifactId>vertx-guice</artifactId>
             <version>0.3.4-SNAPSHOT</version>
         </dependency>
