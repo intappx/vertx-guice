@@ -3,10 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.ldclrcq.</groupId>
     <artifactId>vertx-guice-example-service-proxy</artifactId>
-    <version>0.3.4-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.ldclrcq</groupId>
@@ -27,7 +25,7 @@
         <dependency>
             <groupId>org.ldclrcq</groupId>
             <artifactId>vertx-guice</artifactId>
-            <version>0.3.4-SNAPSHOT</version>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
