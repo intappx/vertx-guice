@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
         <vertx.version>4.2.5</vertx.version>
         <guice.version>5.1.0</guice.version>
