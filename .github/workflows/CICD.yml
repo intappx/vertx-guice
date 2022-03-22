@@ -1,0 +1,41 @@
+name : CI/CD
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build:
+    name: Maven Build & Analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Conventional commit check
+        uses: cocogitto/cocogitto-action@v2
+        with:
+          check-latest-tag-only: true
+
+      - uses: actions/setup-java@v2
+        name: Setup JDK 17
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          check-latest: true
+
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build & Analyse
+        run: mvn verify
