@@ -26,9 +26,25 @@ jobs:
                     java-version: '11'
                     check-latest: true
 
+            -   name: Configure GPG Key
+                env:
+                  GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+                run: |
+                    if [ "$GPG_SIGNING_KEY" = "" ]; then
+                      println "ERROR: No GPG_SIGNING_KEY defined"
+                      exit 200
+                    fi
+
+                    mkdir -p ~/.gnupg/
+                    print "${GPG_SIGNING_KEY}" | base64 --decode > ~/.gnupg/private.key
+                    gpg --import ~/.gnupg/private.key
+
             -   name: Semver release
                 id: release
                 uses: cocogitto/cocogitto-action@v3
+                env:
+                  MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                  MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
                 with:
                     release: true
                     check-latest-tag-only: true
