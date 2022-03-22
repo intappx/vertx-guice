@@ -2,7 +2,7 @@ ignore_merge_commits = true
 branch_whitelist = ["master"]
 
 pre_bump_hooks = [
-    "sh -c 'mvn verify $MAVEN_CLI_OPTS -Prelease'",
+    "mvn -f vertx-guice verify -Prelease",
     "git checkout -b release/{{version}}",
     "mvn versions:set -DnewVersion={{version}}",
 ]
@@ -10,7 +10,7 @@ pre_bump_hooks = [
 post_bump_hooks = [
     "git push --set-upstream origin release/{{version}}",
     "git push origin {{version}}",
-    "sh -c 'mvn -f vertx-guice deploy -s ci/.m2/settings.xml --batch-mode -P release'",
+    "mvn -f vertx-guice deploy -s ci/.m2/settings.xml --batch-mode -P release",
     "git checkout master",
     "git merge --no-ff release/{{version}} -m \"chore: merge release branch {{version}} \"",
     "mvn versions:set -DnewVersion={{version+1patch-SNAPSHOT}}",
