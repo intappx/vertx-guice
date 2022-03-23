@@ -72,6 +72,34 @@ public class GuiceVertxDeploymentManager {
     }
 
     /**
+     * Deploy a verticle instance given a class of the verticle using default deployment options
+     * and {@link GuiceVerticleFactory} factory.
+     *
+     * @param verticleClazz the class of the verticle to deploy
+     * @return A future containing the deployment id when completed
+     */
+    public Future<String> maybeDeployVerticle(final Class<? extends Verticle> verticleClazz) {
+        Preconditions.checkNotNull(verticleClazz);
+
+        return this.vertx.deployVerticle(getFullVerticleName(verticleClazz), new DeploymentOptions());
+    }
+
+    /**
+     * Deploy a verticle instance given a class of the verticle using default deployment options
+     * and {@link GuiceVerticleFactory} factory.
+     *
+     * @param verticleClazz the class of the verticle to deploy
+     * @param options       the deployment options
+     * @return A future containing the deployment id when completed
+     */
+    public Future<String> maybeDeployVerticle(final Class<? extends Verticle> verticleClazz, final DeploymentOptions options) {
+        Preconditions.checkNotNull(verticleClazz);
+        Preconditions.checkNotNull(options);
+
+        return this.vertx.deployVerticle(getFullVerticleName(verticleClazz), options);
+    }
+
+    /**
      * Gets the name of the verticle with adding prefix required to notify vertx to use
      *
      * @param verticleClazz the class of the verticle to deploy.
